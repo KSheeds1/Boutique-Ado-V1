@@ -27,7 +27,7 @@ class Order(models.Model):
                                       null=False, default=0)
 
     def _generate_order_number(self):
-        """ 
+        """
         Generate a random, unique order number using UUID
         """
         return uuid.uuid4().hex.upper()
@@ -51,27 +51,26 @@ class Order(models.Model):
         it hasn't already been set.
         """
         if not self.order_number:
-            sef.order_number = self._generate_order_number()
+            self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.order_number
-        
 
-                                    
+
 class OrderLineItem(models.Model):
-    order = models.ForeignKey(Order, null=False, blank=False, 
+    order = models.ForeignKey(Order, null=False, blank=False,
                               on_delete=models.CASCADE,
                               related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False,
                                 on_delete=models.CASCADE)
-    product_size = models.CharField(max_length=2, null=True, 
-                                    blank=True) #XS, S, M, L, XL
-    quantity = models.IntegerField(null=False, blank=False, 
+    product_size = models.CharField(max_length=2, null=True,
+                                    blank=True)  # XS, S, M, L, XL
+    quantity = models.IntegerField(null=False, blank=False,
                                    default=0)
-    lineitem_total = models.DecimalField(max_digits=6, 
-                                        decimal_places=2, null=False,
-                                        blank=False, editable=False)
+    lineitem_total = models.DecimalField(max_digits=6,
+                                         decimal_places=2, null=False,
+                                         blank=False, editable=False)
 
     def save(self, *args, **kwargs):
         """
@@ -83,4 +82,3 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
-        
