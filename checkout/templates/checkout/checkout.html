@@ -108,6 +108,8 @@
                         <div class="mb-3" id="card-element"></div>
                         <!--Used to display potential form errors-->
                         <div class="mb-3 text-danger" id="card-errors"></div>
+                        <!--Pass the client secret to the view so you can get the payment intent id-->
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
                     <!--Link back to shopping bag / Submit Button / Payment notification-->
                     <div class="submit-button text-right mt-5 mb-2">                    
